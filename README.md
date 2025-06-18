@@ -1,18 +1,4 @@
-This repo contains branches with minimal working examples for submission to the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/).
-
-To see an example for a given round, clone this repository, then check out the corresponding branch.
-
-For example
-
-```
-git clone https://github.com/usnistgov/vlincs-example.git
-cd vlincs-example
-git checkout self-test-ta1
-```
-
-The available branches are
-
-* https://github.com/usnistgov/vlincs-example/tree/self-test-ta1
+This branch explains how to submit to the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/) for take home evaluation. 
 
 ### System Output Format for Re-identification (ReID) and Geo Location (GeoLoc) Tasks
 
@@ -38,7 +24,7 @@ Table 1: System Output Format
 
 Because Parquet is a binary format, performers must use a tool or library to encode and decode the output into Parquet.
 
-### Self-Test Submission Protocol
+### Takehome Submission Protocol
 
 Performers must create their own Google Drive account from which they will submit their system output. Before making the first submission, they must register their Google Drive account with NIST. Performers can make submissions once NIST has added their Google Drive account. 
 
