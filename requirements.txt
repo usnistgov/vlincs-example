@@ -1,0 +1,4 @@
+reid_hota
+opencv-python
+pyarrow
+pandas
