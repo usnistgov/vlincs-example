@@ -8,6 +8,7 @@ This branch explains how to submit to the [VLINCS Leaderboard](https://pages.nis
 4. [Usage](#usage)
    1. [Generate Random Data](#generate-random-data)
    2. [Package Submission](#package-submission)
+   3. [Compute Metrics](#compute-metrics)
 5. [Example Usage](#example-usage)
 6. [Metric Calculation](#metric-calculation)
 7. [System Output Format for Re-identification (ReID) and Geo Location (GeoLoc)](#system-output-format-for-re-identification-reid-and-geo-location-geoloc)
@@ -21,6 +22,7 @@ The `create_submission.py` script is a utility tool designed to facilitate the c
 
 *   **Data Generation**: The script can generate random data based on the provided dataset name and video directory.
 *   **Submission Packaging**: It validates the submission data, computes metrics if ground truth data is provided, and packages the submission into a zip file.
+*   **Test Metric Calculation**: Tests metric computation, must have access to ground truth to execute.
 
 ## Getting Started
 * Clone this repository using `git` (or pull before use to get latest updates)
@@ -31,7 +33,8 @@ The `create_submission.py` script is a utility tool designed to facilitate the c
 
 ## Usage
 
-The `create_submission.py` script is used via the command line and supports two main commands: `generate` and `package`.
+The `create_submission.py` script is used via the command line and supports three main commands: `generate`, `package`, and `metrics`.
+
 
 ### Generate Random Data
 
@@ -59,6 +62,19 @@ python create_submission.py package --results_dirpath <results_directory> --outp
 *   `--output_name`: The name of the output zip file.
 *   `--ground_truth_dirpath`: (Optional) The directory containing the ground truth data. If provided, the script will compute metrics.
 
+
+### Compute Metrics
+
+To test computing metrics for the submission data, use the `metrics` command (requires access to ground truth):
+
+```bash
+python create_submission.py metrics --results_dirpath <results_directory> --ground_truth_dirpath <ground_truth_directory> --dataset_name <dataset_name>
+```
+
+*   `--results_dirpath`: The directory containing the submission data.
+*   `--ground_truth_dirpath`: The directory containing the ground truth data.
+*   `--dataset_name`: The name of the dataset being evaluated (e.g., "debug").
+
 ## Example Usage
 
 1.  Generate random data for the "debug" dataset:
@@ -73,10 +89,20 @@ python create_submission.py generate --output_dirpath ./generated_data --videos_
 python create_submission.py package --results_dirpath ./submission_data --output_dirpath ./output --dataset_name debug --output_name my_submission --ground_truth_dirpath ./ground_truth
 ```
 
-By following these steps and using the provided commands, you can effectively utilize the `create_submission.py` script to generate random data and package your submissions for the VLINCs leaderboard.
+3.  Compute metrics for the submission data:
+
+```bash
+python create_submission.py metrics --results_dirpath ./submission_data --ground_truth_dirpath ./ground_truth --dataset_name debug
+```
+
+By following these steps and using the provided commands, you can effectively utilize the `create_submission.py` script to generate random data, package your submissions, and test computing metrics for the VLINCs leaderboard.
+
 
 ## Metric Calculation
 The codebase includes functionality to compute metrics when provided with ground truth answers. Currently, it outputs a subset of the metrics calculated by the reid_hota Python library, mirroring those displayed on the leaderboard. For a comprehensive list of available metrics returned by this library, refer to the [reid_hota documentation](https://github.com/usnistgov/reid_hota)."
+
+
+
 
 # System Output Format for Re-identification (ReID) and Geo Location (GeoLoc)
 

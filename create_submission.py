@@ -231,5 +231,15 @@ if __name__ == '__main__':
     package_parser.add_argument('--ground_truth_dirpath', type=str, default=None, help='Path to the ground truth directory')
     package_parser.set_defaults(func=package_submission)
 
+    # Subparser for computing metrics
+    metrics_parser = subparsers.add_parser('metrics', help='Compute metrics')
+    metrics_parser.add_argument('--results_dirpath', type=str, required=True, help='Path to the results directory')
+    metrics_parser.add_argument('--ground_truth_dirpath', type=str, required=True, help='Path to the ground truth directory')
+    metrics_parser.add_argument('--dataset_name', type=str, required=True, choices=datasets_dict.keys(), help='Name of the dataset')
+    metrics_parser.set_defaults(func=lambda args: compute_metrics(args.results_dirpath, args.ground_truth_dirpath, args.dataset_name))
+
     args = parser.parse_args()
-    args.func(args)
+    if hasattr(args, 'func'):
+        args.func(args)
+    else:
+        parser.print_help()
