@@ -12,4 +12,4 @@ git checkout takehome
 
 The available branches are
 
-* https://github.com/usnistgov/vlincs-example/tree/takehome
+* [Take Home Evaluation](https://github.com/usnistgov/vlincs-example/tree/takehome)
