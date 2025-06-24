@@ -1,6 +1,18 @@
 # Submission Guide for Take Home Evaluation
 This branch explains how to submit to the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/) for __take home__ evaluation.
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Getting Started](#getting-started)
+4. [Usage](#usage)
+   1. [Generate Random Data](#generate-random-data)
+   2. [Package Submission](#package-submission)
+5. [Example Usage](#example-usage)
+6. [Metric Calculation](#metric-calculation)
+7. [System Output Format for Re-identification (ReID) and Geo Location (GeoLoc)](#system-output-format-for-re-identification-reid-and-geo-location-geoloc)
+8. [Takehome Submission Protocol](#takehome-submission-protocol)
+
 ## Overview
 
 The `create_submission.py` script is a utility tool designed to facilitate the creation and packaging of submissions for the VLINCs leaderboard. It provides two primary functions: generating random data for testing purposes and packaging submission data into a compatible zip file. If ground truth data is provided, then metric calculation can be computed.
@@ -63,8 +75,10 @@ python create_submission.py package --results_dirpath ./submission_data --output
 
 By following these steps and using the provided commands, you can effectively utilize the `create_submission.py` script to generate random data and package your submissions for the VLINCs leaderboard.
 
+## Metric Calculation
+The codebase includes functionality to compute metrics when provided with ground truth answers. Currently, it outputs a subset of the metrics calculated by the reid_hota Python library, mirroring those displayed on the leaderboard. For a comprehensive list of available metrics returned by this library, refer to the [reid_hota documentation](https://github.com/usnistgov/reid_hota)."
 
-# System Output Format for Re-identification (ReID) and Geo Location (GeoLoc) Tasks
+# System Output Format for Re-identification (ReID) and Geo Location (GeoLoc)
 
 All objects re-identified by the system for a given input video file should be in the same system output file. If there is no output for a given input video, it means no output from the ReID system.
 
