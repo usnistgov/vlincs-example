@@ -204,7 +204,7 @@ def package_submission(args):
     with zipfile.ZipFile(output_filepath, 'w') as zip_file:
         for filename in os.listdir(results_dirpath):
             file_path = os.path.join(results_dirpath, filename)
-            if os.path.isfile(file_path):
+            if os.path.isfile(file_path) and filename.endswith('.parquet'):
                 zip_file.write(file_path, filename)
 
 
