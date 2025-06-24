@@ -1,3 +1,5 @@
 output
 video_data
 example_results
+.vscode
+__pycache__
