@@ -1,4 +1,4 @@
-# Create Submission Script
+# Submission Guide for Take Home Evaluation
 This branch explains how to submit to the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/) for __take home__ evaluation.
 
 ## Overview
