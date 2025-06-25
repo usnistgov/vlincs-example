@@ -179,7 +179,7 @@ def generate_random_data(output_dirpath: str, videos_dirpath: str, dataset_name:
                 h = np.random.randint(0, height - y)
 
                 # Generate random lat/long/alt
-                lat = np.random.randint(-180, 180)
+                lat = np.random.randint(-90, 90)
                 long = np.random.randint(-180, 180)
                 alt = np.random.uniform(-1000, 1000)
 
