@@ -1,6 +1,6 @@
 <!-- README.md under main branch -->
 
-# VLINCS Example - _Video LINCS Evaluation Example Submissions_ 
+# VLINCS Example - <small>_Video LINCS Evaluation Example Submissions_</small> 
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -74,8 +74,10 @@ The available branches are
 * [Take-Home Evaluation](https://github.com/usnistgov/vlincs-example/tree/takehome)
 
 # Contributing
+- NIST Video LINCS Evaluation Team
 
 # License
+[NIST Software License](LICENSE.md)
 
 # Contact
 - NIST Test & Evaluation Point of Contact: vlincs@nist.gov 
