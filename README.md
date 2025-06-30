@@ -1,158 +1,227 @@
-# Submission Guide for Take Home Evaluation
-This branch explains how to submit to the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/) for __take home__ evaluation.
+# VLINCS Take-Home Evaluation Submission Example
 
-## Table of Contents
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Getting Started](#getting-started)
-4. [Usage](#usage)
-   1. [Generate Random Data](#generate-random-data)
-   2. [Package Submission](#package-submission)
-   3. [Compute Metrics](#compute-metrics)
-5. [Example Usage](#example-usage)
-6. [Metric Calculation](#metric-calculation)
-7. [System Output Format for Re-identification (ReID) and Geo Location (GeoLoc)](#system-output-format-for-re-identification-reid-and-geo-location-geoloc)
-8. [Takehome Submission Protocol](#takehome-submission-protocol)
+This branch provides an example for submitting to the **[VLINCS Leaderboard](https://pages.nist.gov/vlincs/)** as part of the **Take-Home** Evaluation. It includes guidance and resources specific to the Take-Home submission process. 
 
-## Overview
+For the main branch of the VLINCS Example repository, which supports the **NIST Video LINCS Evaluation** more broadly, please visit: [https://github.com/usnistgov/vlincs-example/](https://github.com/usnistgov/vlincs-example/).
 
-The `create_submission.py` script is a utility tool designed to facilitate the creation and packaging of submissions for the VLINCs leaderboard. It provides two primary functions: generating random data for testing purposes and packaging submission data into a compatible zip file. If ground truth data is provided, then metric calculation can be computed.
+## Table of Contents<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+      <ul>
+        <li><a href="#1-overview">1. Overview</a>
+      </li>
+        <li><a href="#2-getting-started">2. Getting Started</a>
+      </li>
+        <li><a href="#3-feature-and-usage">3. Feature and Usage</a>
+      <ul>
+        <li><a href="#31-generate-random-data">3.1 Generate Random Data</a>
+      </li>
+        <li><a href="#32-package-submission">3.2 Package Submission</a>
+      </li>
+        <li><a href="#33-compute-metrics">3.3 Compute Metrics</a>
+      </li>
+      </ul>
+        <li><a href="#4-takehome-submission-protocol">4. Takehome Submission Protocol</a>
+      </li>
+        <li><a href="#5-appendix">5. Appendix</a>
+      <ul>
+        <li><a href="#51-system-output-format">5.1 System Output Format</a>
+      </li>
+    </ul></ul>
+    </li>
+  </ol>
+</details>
 
-## Features
+## 1. Overview
 
-*   **Data Generation**: The script can generate random data based on the provided dataset name and video directory.
-*   **Submission Packaging**: It validates the submission data, computes metrics if ground truth data is provided, and packages the submission into a zip file.
-*   **Test Metric Calculation**: Tests metric computation, must have access to ground truth to execute.
+The `create_submission.py` script is a utility designed to streamline the process of generating, validating, and packaging system outputs for the **[VLINCS Leaderboard](https://pages.nist.gov/vlincs/)**. It offers three core functionalities:
 
-## Getting Started
-* Clone this repository using `git` (or pull before use to get latest updates)
-* Download [miniforge](https://github.com/conda-forge/miniforge) (also can be installed using uv or python venv)
-* `conda create --name vlincs-example python=3.11`
-* `conda activate vlincs-example`
-* `pip install -r requirements.txt`
+- **Random Data Generation**: Useful for testing and debugging pipelines.
+- **Submission Packaging**: Validates outputs and prepares a properly structured `.zip` file for leaderboard submission.
+- **Metric Calculation**: If ground truth data is available, performance metrics will be computed using the `reid_hota` library.
 
-## Usage
+This tool supports standardized workflows, ensuring compatibility with NIST’s evaluation infrastructure and reproducibility of results.
 
-The `create_submission.py` script is used via the command line and supports three main commands: `generate`, `package`, and `metrics`.
+---
 
+## 2. Getting Started
 
-### Generate Random Data
+To set up the environment and begin using the tool:
+
+### 2.1 Clone the Repository
+
+```bash
+# Clone this repository using `git` 
+git clone https://github.com/usnistgov/vlincs-example.git
+cd vlincs-example
+git checkout takehome
+
+# Or pull before use to get latest updates
+git pull  # if you've already cloned it
+```
+
+### 2.2 Set Up the Environment
+
+Using [Miniforge](https://github.com/conda-forge/miniforge) (recommended), or any Python environment manager like `uv` or `venv`:
+
+```bash
+# Create and activate the environment
+conda create --name vlincs-example python=3.11
+conda activate vlincs-example
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+## 3. Features and Usage
+
+The script supports three main subcommands:
+
+- `generate`: Creates synthetic data for testing.
+- `package`: Validates and archives results for submission.
+- `metrics`: Computes performance metrics given ground truth.
+
+### 3.1 Generate Random Data
+#### 3.1.1 Description
+This command generates synthetic system outputs, simulating realistic data for a given dataset. This is particularly helpful for debugging or validating the end-to-end submission pipeline.
+
+> The output conforms to the **System Output Format** described in [Appendix 5.1](#51-system-output-format).
+
+#### 3.1.2 Usage
 
 To generate random data, use the `generate` command:
 
 ```bash
 python create_submission.py generate --output_dirpath <output_directory> --videos_dirpath <videos_directory> --dataset_name <dataset_name>
 ```
+* `--output_dirpath`: Directory where generated files will be stored.
+* `--videos_dirpath`: Path to the input videos used for synthetic output generation.
+* `--dataset_name`: Dataset identifier (e.g., `debug`, `meva-rev2`, etc.).
 
-*   `--output_dirpath`: The directory where the generated data will be saved.
-*   `--videos_dirpath`: The directory containing the video data.
-*   `--dataset_name`: The name of the dataset being generated (e.g., "debug").
+#### 3.1.3 Example
+Generate random data for the "debug" dataset:
+```bash
+python create_submission.py generate --output_dirpath ./generated_data --videos_dirpath ./videos --dataset_name debug
+```
+### 3.2 Package Submission
+#### 3.2.1 Description
+This command validates a submission, optionally computes evaluation metrics, and packages the output files into a ZIP archive suitable for leaderboard submission.
 
-### Package Submission
-
+#### 3.2.2 Usage
 To package the submission data, use the `package` command:
 
 ```bash
 python create_submission.py package --results_dirpath <results_directory> --output_dirpath <output_directory> --dataset_name <dataset_name> --output_name <output_name> [--ground_truth_dirpath <ground_truth_directory>]
 ```
+* `--results_dirpath`: Directory containing the system output files.
+* `--output_dirpath`: Directory where the `.zip` file will be saved.
+* `--dataset_name`: Dataset identifier.
+* `--output_name`: Desired name for the ZIP file (without `.zip` extension).
+* `--ground_truth_dirpath` *(optional)*: Path to the ground truth data. Required for metric computation.
 
-*   `--results_dirpath`: The directory containing the submission data.
-*   `--output_dirpath`: The directory where the packaged submission will be saved.
-*   `--dataset_name`: The name of the dataset being submitted (e.g., "debug").
-*   `--output_name`: The name of the output zip file.
-*   `--ground_truth_dirpath`: (Optional) The directory containing the ground truth data. If provided, the script will compute metrics.
+### 3.3 Compute Metrics
 
+#### 3.3.1 Description
+When ground truth data is available, this command computes evaluation metrics for the system output using the `reid_hota` library. The results reflect a subset of metrics displayed on the official leaderboard.
 
-### Compute Metrics
+> For the complete list of supported metrics, refer to the [reid_hota GitHub repository](https://github.com/usnistgov/reid_hota) and the [documentation](https://pypi.org/project/reid-hota/).
 
+#### 3.3.2 Usage
 To test computing metrics for the submission data, use the `metrics` command (requires access to ground truth):
 
 ```bash
 python create_submission.py metrics --results_dirpath <results_directory> --ground_truth_dirpath <ground_truth_directory> --dataset_name <dataset_name>
 ```
+* `--results_dirpath`: Path to your system's result files.
+* `--ground_truth_dirpath`: Path to the ground truth data.
+* `--dataset_name`: Identifier for the dataset being evaluated.
 
-*   `--results_dirpath`: The directory containing the submission data.
-*   `--ground_truth_dirpath`: The directory containing the ground truth data.
-*   `--dataset_name`: The name of the dataset being evaluated (e.g., "debug").
-
-## Example Usage
-
-1.  Generate random data for the "debug" dataset:
-
- ```bash
-python create_submission.py generate --output_dirpath ./generated_data --videos_dirpath ./videos --dataset_name debug
-```
-
-2.  Package the submission data:
-
-```bash
-python create_submission.py package --results_dirpath ./submission_data --output_dirpath ./output --dataset_name debug --output_name my_submission --ground_truth_dirpath ./ground_truth
-```
-
-3.  Compute metrics for the submission data:
-
+#### 3.3.3 Example
 ```bash
 python create_submission.py metrics --results_dirpath ./submission_data --ground_truth_dirpath ./ground_truth --dataset_name debug
 ```
+---
+## 4. Takehome Submission Protocol
+For the take-home evaluation, performers must submit their system output via Google Drive using the process described below. Submissions must follow the naming and formatting conventions outlined to ensure compatibility with NIST’s evaluation infrastructure.
 
-By following these steps and using the provided commands, you can effectively utilize the `create_submission.py` script to generate random data, package your submissions, and test computing metrics for the VLINCs leaderboard.
+**Step 1. Account Setup (One-Time Only)**
 
+1. **Create a Google Drive account**
 
-## Metric Calculation
-The codebase includes functionality to compute metrics when provided with ground truth answers. Currently, it outputs a subset of the metrics calculated by the reid_hota Python library, mirroring those displayed on the leaderboard. For a comprehensive list of available metrics returned by this library, refer to the [reid_hota documentation](https://github.com/usnistgov/reid_hota)."
+   - Use "My Drive" (not a Shared Drive) to avoid permission issues.
 
+2. **Register with NIST**
 
+   - Email `vlincs@nist.gov` with the following:
+     - **Team Name**: Alphanumeric only.
+     - **Google Drive Account Email**
+     - **Point of Contact Email**: Official institutional email.
 
+**Step 2. Submission**
 
-# System Output Format for Re-identification (ReID) and Geo Location (GeoLoc)
+1. **Prepare Output Files**
 
-All objects re-identified by the system for a given input video file should be in the same system output file. If there is no output for a given input video, it means no output from the ReID system.
+   - Archive `.parquet` files only (no folders).
 
-Due to the data volume, each system output file must be stored as a Parquet file to facilitate efficient storage and retrieval. Parquet stores data in a columnar format. Both the ReID and GeoLoc tasks use the same system output format. However, the scorer will ignore the last three columns for the ReID task. Table 1 lists the columns defined for the system output:
+   ```bash
+   zip MyBestSys.zip *.parquet
+   ```
 
-| Column Name | Description                                                                                        | Valid Range                      | Unit   |
-| ----------- | ---- | ---- | ------ |
-| frame    | A number representing the unique frame number in which the object appears                          | `int >= 0`                       | n/a    |
-| object_id   | A number representing the unique identifier of the predicted object                                | `int >= 0`                       | n/a    |
-| class_id    | A number denoting the class of the object: 1 for a person, 2 for a vehicle, 3 for a generic object | `int >= 0`                       | n/a    |
-| score        | A number between 0 and 1 representing the level of certainty in the prediction                     | `0 <= float <= 1.0`              | n/a    |
-| x           | A number representing the x-coordinate of the top-left point of the bounding box in pixels         | `0 <= int <= frame_width`        | pixel  |
-| y           | A number representing the y-coordinate of the top-left point of the bounding box in pixels         | `0 <= int <= frame_height`       | pixel  |
-| w           | A number representing the width of the bounding box in pixels                                      | `0 <= int <= (frame_width - x)`  | pixel  |
-| h           | A number representing the height of the bounding box in pixels                                     | `0 <= int <= (frame_height - y)` | pixel  |
-| lat         | A decimal number indicating latitude in the UTM map projection system                              | `-90 <= double <= 90`            | degree |
-| long        | A decimal number indicating longitude in the UTM map projection system                             | `-180 <= double <= 180`          | degree |
-| alt         | A number indicating the altitude in meters relative to sea level                                   | `float`                          | meter  |
+2. **Rename Archive**
 
-Table 1: System Output Format
+   ```
+   <LeaderboardName>_<DatasetName>_<SubmissionName>.zip
+   ```
 
-The tool described above can be used to generate example data in the parquet format. The `utils.py` file implements the function `generate_random_data`, which shows an example of how to package results into a parquet file.
+   Example:
 
-# Takehome Submission Protocol
+   ```bash
+   mv MyBestSys.zip takehome-ta1_meva-rev2_MyBestSys.zip
+   ```
 
-Performers must use their own Google Drive account from which they will submit their system output. Before making the first submission, they must register their Google Drive account with NIST. Performers can make submissions once NIST has added their Google Drive account.
+3. **Upload & Share**
 
-Below are the steps. Steps 1-2 are only done once for the duration of the program:
+   - Upload to your registered Google Drive.
+   - Share the file with `vlincs@nist.gov`.
+   - Unshare the file once the Job Status shows “None”.
 
-1. Create a Google Drive account (from which a performer/team will use to submit their system output). It is recommended that this drive be ‘My Drive’, not a ‘Shared drive’ because some organizations do not allow sharing a file on their institutional shared drive with an account not on the shared drive.
-2. Register the Google Drive account with NIST by emailing [vlincs@nist.gov](mailto:vlincs@nist.gov) with the following requested information:
-   - Team name (alphanumeric, no special characters, no spaces) \- the performer may be asked to change their team name if it collides with another team.
-   - Google Drive account email
-   - Point of contact email address (the performer’s official institutional email)
-3. Zip up the system output.
-   - Using the `package` command, call the `create_submission.py`, as shown above.
-   - The resulting zip should contain only a list of parquet files, named based on each video file. There should be no directory or subdirectory.      
-4. Zip file naming:  
-   - The zip file must be named with the following format: `takehome_<Dataset Name>_<Submission Name>.zip`
-   - By using the `create_submission.py`, the utility will name the zip file according to your parameters as described above.
-   - The name of the dataset will correspond to what is distributed and live on the leaderboard, as shown under the `takehome` tab on the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/). The `create_submission.py` will be updated as new datasets are added to the leaderboard.
-   - `<Submission Name>` is an alpha-numeric, mnemonic name chosen by the performer  
-  For example: `takehome_debug_rev2_MyBestSys.zip`, `rev2_MyBestSys` will be displayed as the submission name on the leaderboard.
-5. Upload the zip file to the performer’s Google Drive account.
-6. Share the zip file with [vlincs@nist.gov](mailto:vlincs@nist.gov).
-7. To make a second submission either overwrite the shared file or unshare the file and share the next. 
-   - Only one file can be sahred at a time per dataset.
-8. To see the Job Status, go to the leaderboard [https://pages.nist.gov/vlincs/](https://pages.nist.gov/vlincs/). There is a Teams/Jobs table that lists the statuses of all the jobs.
+> Performers may submit once per month during the self-test period. Contact NIST for the full evaluation schedule.
 
+---
 
-Performers are allowed to make as many submissions as needed every month, but are required to submit once per month during the take home period. Please consult the evaluation schedule in the evaluation plan for the take home period. Each submission will be scored with the results displayed to the leaderboard shortly thereafter.
+## 5. Appendix
+
+### 5.1 System Output Format
+All objects re-identified by the system for a given input video must be included in a single corresponding system output file. If there is no output for a particular video, it indicates that the ReID system did not produce any results.
+
+To handle large volumes of data efficiently, each system output file must be stored in Parquet format (`.parquet` file), which uses a columnar storage structure optimized for performance and scalability. This format is shared across both the **Re-identification (ReID)** and **Geo Location (GeoLoc)** tasks. However, for the ReID task, the last three columns are ignored by the scorer.
+
+Output guidelines:
+- One Parquet file per input video.
+- If there is no output, no file should be generated.
+- The same output format is used for both ReID and GeoLoc tasks, with task-specific interpretation by the scorer.
+
+Table 1 lists the columns defined in the system output for both **ReID** and **GeoLoc** tasks:
+
+| Column Name | Description | Valid Range | Unit |
+|-------------|-------------|--------------|------|
+| `frame_id`  | a unique identifier assigned to a single video frame | `uint (≥ 0)` | n/a |
+| `object_id` | a unique identifier assigned to a specific detected entity—such as a person, vehicle, or object | `uint (≥ 0)` | n/a |
+| `x`         | the x-coordinate of the top-left corner of the rectangular bounding box in pixels | `uint (0 to frame_width)` | pixel |
+| `y`         | the y-coordinate of the top-left corner of the rectangular bounding box in pixels | `uint (0 to frame_height)` | pixel |
+| `w`         | the width of the bounding box in pixels | `uint (0 to frame_width - x)` | pixel |
+| `h`         | the height of the bounding box in pixels | `uint (0 to frame_height - y)` | pixel |
+| `confidence`| a number between 0 and 1 representing the level of certainty in the prediction, with 0 as complete uncertainty and 1 as absolute certainty. | `float (0.0 to 1.0)` | n/a |
+| `class_id`  | a number denoting the class of the object: <br>1 for a person <br>2 for a vehicle <br>3 for a generic object that is neither a person nor a vehicle | `uint (≥ 0)` | n/a |
+| `lat`       | the angular distance north or south of the Earth’s equator, measured in degrees and ranging from -90° to 90°, where 0° represents the equator, positive values indicate locations north of the equator, and negative values indicate locations south of the equator. Latitude specifies a location’s position on the globe along the north-south axis. | `double (-90.0 to 90.0)` | degree |
+| `long`      | the angular distance east or west of the Prime Meridian, measured in decimal degrees from -180° to 180°, where 0° represents the Prime Meridian, positive values indicate locations to the east, and negative values indicate locations to the west. Longitude defines a location’s position along the east-west axis of the globe. | `double (-180.0 to 180.0)` | degree |
+| `alt`       | the height of an object relative to sea level, measured in meters. Positive values indicate elevation above sea level, while negative values indicate positions below sea level. | `float (unbounded)` | meter |
+
+**Table 1: System Output Format for both ReID and GeoLoc tasks**
+
+The tool described above can be used to generate example data in Parquet format. The `utils.py` file includes the `generate_random_data` function, which demonstrates how to package results into a Parquet file.
+
+📌 **Note**: This standardized format ensures efficient data handling and maintains compatibility with the leaderboard scoring system.
