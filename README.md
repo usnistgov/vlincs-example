@@ -13,7 +13,9 @@
       </li>
         <li><a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#to-start-using-vlincs-example">To start using VLINCS Example</a>
+        <li><a href="#take-home-evaluation-example">Take-Home Evaluation Example</a>
+      </li>
+        <li><a href="#sequestered-evaluation-example">Sequestered Evaluation Example</a>
       </li>
       </ul>
         <li><a href="#contributing">Contributing</a>
@@ -30,6 +32,7 @@
     </li>
   </ol>
 </details>
+
 
 
 ## What is the VLINCS Example?
@@ -56,22 +59,27 @@ This repository is intended for:
 
 
 ## Getting Started
-This repo contains branches with minimal working examples for submission to the [VLINCS Leaderboard](https://pages.nist.gov/vlincs/).
+The **Video LINCS (VLINCS) Evaluation** supports two types of evaluation modes: **Take-Home** and **Sequestered**. This repository provides minimal working examples to help users prepare and format their submissions for the **[VLINCS Leaderboard](https://pages.nist.gov/vlincs/)**.
 
-### To start using VLINCS Example
-To see an example for a given round, clone this repository, then check out the corresponding branch.
+### Take-Home Evaluation Example
+To get started with a Take-Home evaluation example:
 
-For example
+1. Clone the repository:
 
 ```
 git clone https://github.com/usnistgov/vlincs-example.git
+```
+2. Check out the [Take-Home](https://github.com/usnistgov/vlincs-example/tree/takehome) branch:
+
+```
 cd vlincs-example
 git checkout takehome
 ```
+### Sequestered Evaluation Example 
 
-The available branches are
+_Coming soon_. 
 
-* takehome: [Take-Home Evaluation](https://github.com/usnistgov/vlincs-example/tree/takehome)
+A branch for the sequestered evaluation example is under development and will be added in a future update.
 
 # Contributing
 - NIST Video LINCS Evaluation Team
