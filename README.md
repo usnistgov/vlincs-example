@@ -17,9 +17,9 @@ For the main branch of the VLINCS Example repository, which supports the **NIST 
       <ul>
         <li><a href="#31-debug-data">3.1 Debug Data</a>
       </li>
-        <li><a href="#32-take-home-evaluation--data">3.2 Take-Home Evaluation  Data</a>
+        <li><a href="#32-take-home-evaluation-data">3.2 Take-Home Evaluation Data</a>
       </li>
-        <li><a href="#33-sequester-evaluation--data">3.3 Sequester Evaluation  Data</a>
+        <li><a href="#33-sequester-evaluation-data">3.3 Sequester Evaluation Data</a>
       </li>
       </ul>
         <li><a href="#4-feature-and-usage">4. Feature and Usage</a>
@@ -113,7 +113,7 @@ The script supports three main subcommands:
 #### 4.1.1 Description
 This command generates synthetic system outputs, simulating realistic data for a given dataset. This is particularly helpful for debugging or validating the end-to-end submission pipeline.
 
-> The output conforms to the **System Output Format** described in [Appendix 5.1](#51-system-output-format).
+> The output conforms to the **System Output Format** described in [Appendix 6.1](#61-system-output-format).
 
 #### 4.1.2 Usage
 
@@ -193,14 +193,14 @@ To properly submit your files, please follow these steps:
    - Archive `.parquet` files only (no folders).
    - Ensure the output files are correctly formatted and named.
 
-> **Important**: Use the `create_submission.py` script as described in Section 4.2 to validate your submission. This tool will automatically prepare and name the output files correctly, ensuring the submission is in the proper format.
+> **Important**: Use the `create_submission.py` script as described in [Section 4.2](#42-package-submission) to validate your submission. This tool will automatically prepare and name the output files correctly, ensuring the submission is in the proper format.
 
 Once you've validated the files using the script, you can proceed with the following:
 
    ```bash
    zip MyBestSys.zip *.parquet
    ```
-2. **Rename Archive**
+1. **Rename Archive**
 
    ```
    <LeaderboardName>_<DatasetName>_<SubmissionName>.zip
@@ -212,7 +212,7 @@ Once you've validated the files using the script, you can proceed with the follo
    mv MyBestSys.zip takehome-ta1_meva-rev2_MyBestSys.zip
    ```
 
-3. **Upload & Share**
+2. **Upload & Share**
 
    - Upload to your registered Google Drive.
    - Share the file with `vlincs@nist.gov`.
