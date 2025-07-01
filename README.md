@@ -92,7 +92,7 @@ A branch for the sequestered evaluation example is under development and will be
 
 # Related NIST Resources 
 
-- Scoring Tool Source Code: https://github.com/usnistgov/vlincs 
+- Metric Source Code: https://github.com/usnistgov/reid_hota 
 
 - Submission Status and Leaderboard Results: https://pages.nist.gov/vlincs
 
