@@ -90,7 +90,7 @@ A branch for the sequestered evaluation example is under development and will be
 # Contact
 - NIST Test & Evaluation Point of Contact: vlincs@nist.gov 
 
-# Related NIST Resources 
+# Related Resources 
 
 - Metric Source Code: https://github.com/usnistgov/reid_hota 
 
