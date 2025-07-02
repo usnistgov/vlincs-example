@@ -15,11 +15,11 @@ For the main branch of the VLINCS Example repository, which supports the **NIST 
       </li>
         <li><a href="#3-datasets">3. Datasets</a>
       <ul>
-        <li><a href="#31-debug-data">3.1 Debug Data</a>
+        <li><a href="#31-meva-debug-data">3.1 MEVA Debug Data</a>
       </li>
-        <li><a href="#32-take-home-evaluation-data">3.2 Take-Home Evaluation Data</a>
+        <li><a href="#32-mitre-debug-data">3.2 MITRE Debug Data</a>
       </li>
-        <li><a href="#33-sequester-evaluation-data">3.3 Sequester Evaluation Data</a>
+        <li><a href="#33-other-debug-data">3.3 Other Debug Data</a>
       </li>
       </ul>
         <li><a href="#4-feature-and-usage">4. Feature and Usage</a>
@@ -86,20 +86,31 @@ pip install -r requirements.txt
 ---
 
 ## 3. Datasets
-Below is a list of datasets that are currently accessible for processing with the leaderboard.
+This section includes a list of debug datasets currently available for processing on the leaderboard.
+- **Purpose**: Intended for debugging purposes.  
+- **Ground-Truth**: Contains ground-truth data to assist with debugging.
 
-### 3.1 Debug Data
-- **Purpose**: For debugging purposes.
-- **Ground-Truth**: Includes ground-truth data to help with debugging.
-- **Link**: TBD <!-- [Download](https://link-from-mitre) -->
+### 3.1 MEVA Debug Data
+- [Video List](VIDEOLIST.md) from [MEVA](https://mevadata.org/) data
+- Ground-truth <!-- [Download](https://link-from-mitre) -->
 
+### 3.2 MITRE Debug Data
+- TBD
+
+### 3.3 Other Debug Data
+- TBD
+
+<!--
 ### 3.2 Take-Home Evaluation Data
+<div style="color: #bbbbbb;">
 - **Purpose**: For the Take-Home Evaluation.
 - **Ground-Truth**: Does not include ground-truth data, allowing participants to submit analytic results.
+</div> 
 
 ### 3.3 Sequester Evaluation Data
 - **Purpose**: Fully sequestered data.
-  
+-->
+
 --- 
 ## 4. Features and Usage
 
@@ -174,11 +185,11 @@ For the take-home evaluation, performers must submit their system output via Goo
 
 **Step 1. Account Setup (One-Time Only)**
 
-1. **Create a Google Drive account**
+i. **Create a Google Drive account**
 
    - Use "My Drive" (not a Shared Drive) to avoid permission issues.
 
-2. **Register with NIST**
+ii. **Register with NIST**
 
    - Email `vlincs@nist.gov` with the following:
      - **Team Name**: Alphanumeric only.
@@ -188,37 +199,55 @@ For the take-home evaluation, performers must submit their system output via Goo
 **Step 2. Submission**
 To properly submit your files, please follow these steps:
 
-1. **Prepare Output Files**
+i. **Stage Output Files**
 
-   - Archive `.parquet` files only (no folders).
+   - Place only `.parquet` files (no folders) into a single staging directory.
    - Ensure the output files are correctly formatted and named.
 
-> **Important**: Use the `create_submission.py` script as described in [Section 4.2](#42-package-submission) to validate your submission. This tool will automatically prepare and name the output files correctly, ensuring the submission is in the proper format.
+ii. **Run Submission Script**
 
-Once you've validated the files using the script, you can proceed with the following:
+   Use the `create_submission.py` script with the `package` parameter to validate and package your submission. This script will automatically:
 
-   ```bash
-   zip MyBestSys.zip *.parquet
-   ```
-1. **Rename Archive**
+   - Validate the files
+   - Create a properly named ZIP archive
+   - Save the archive to your desired output directory
 
-   ```
-   <LeaderboardName>_<DatasetName>_<SubmissionName>.zip
-   ```
-
-   Example:
+   **Example:**
 
    ```bash
-   mv MyBestSys.zip takehome-ta1_meva-rev2_MyBestSys.zip
+   python create_submission.py package \
+       --results_dirpath /path/to/staged/results \
+       --output_dirpath /path/to/save/zip \
+       --dataset_name debug-data \
+       --output_name hello-world-test
    ```
+  This will generate a file following the naming convention:
+  
+  ```bash
+    <LeaderboardName>_<DatasetName>_<SubmissionName>.zip
+  ```
 
-2. **Upload & Share**
+Where, 
+  
+  ```bash
+  <LeaderboardName>: e.g., takehome
+  <DatasetName>: e.g., debug-data, meva-rev1, meva-rev2
+  <SubmissionName>: Alphanumeric mnemonic name chosen by the performer
+  ```
+Example:
+  ```bash
+   takehome_debug-data_hello-world-test.zip
+  ```
+
+   > **Important**: You do not need to manually run `zip` or `mv` commands. The script handles everything.
+
+iii. **Upload and Share**
 
    - Upload to your registered Google Drive.
    - Share the file with `vlincs@nist.gov`.
    - Unshare the file once the Job Status shows “None”.
 
-> Participants are free to submit as many times as they wish. However, there is a 15-minute cooldown period between each submission, meaning submissions can only be made once every 15 minutes.
+> Participants are free to submit as many times as they wish. However, there is a 15-minute cooldown period between each submission, meaning submissions can only be made once every 15 minutes. Submitted results will be scored and displayed on the leaderboard shortly after processing.
 
 ---
 
