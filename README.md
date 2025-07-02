@@ -206,7 +206,7 @@ i. **Stage Output Files**
 
 ii. **Run Submission Script**
 
-   Use the `create_submission.py` script with the `package` parameter to validate and package your submission. This script will automatically:
+   Use the `create_submission.py` script with the package parameter to validate and package your submission. This script will automatically:
 
    - Validate the files
    - Create a properly named ZIP archive
