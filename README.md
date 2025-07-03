@@ -245,7 +245,7 @@ iii. **Upload and Share**
 
    - Upload to your registered Google Drive.
    - Share the file with `vlincs@nist.gov`.
-   - **Unshare** the file once the Job Status shows "None". This step is required because we only process one shared file per dataset.
+   - When you are ready to submit another file, you must **unshare** the previous file once the Job Status shows "None". This step is required because we only process one shared file per dataset.
 
 > Participants are free to submit as many times as they wish. However, there is a 15-minute cooldown period between each submission, meaning submissions can only be made once every 15 minutes. Submitted results will be scored and displayed on the leaderboard shortly after processing.
 
