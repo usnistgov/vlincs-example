@@ -218,7 +218,7 @@ ii. **Run Submission Script**
    python create_submission.py package \
        --results_dirpath /path/to/staged/results \
        --output_dirpath /path/to/save/zip \
-       --dataset_name debug-data \
+       --dataset_name debug \
        --output_name hello-world-test
    ```
   This will generate a file following the naming convention:
@@ -231,12 +231,12 @@ Where,
   
   ```bash
   <LeaderboardName>: e.g., takehome
-  <DatasetName>: e.g., debug-data, meva-rev1, meva-rev2
+  <DatasetName>: e.g., debug, meva-rev1, meva-rev2
   <SubmissionName>: Alphanumeric mnemonic name chosen by the performer
   ```
 Example:
   ```bash
-   takehome_debug-data_hello-world-test.zip
+   takehome_debug_hello-world-test.zip
   ```
 
    > **Important**: You do not need to manually run `zip` or `mv` commands. The script handles everything.
@@ -245,7 +245,7 @@ iii. **Upload and Share**
 
    - Upload to your registered Google Drive.
    - Share the file with `vlincs@nist.gov`.
-   - Unshare the file once the Job Status shows “None”.
+   - **Unshare** the file once the Job Status shows "None". This step is required because we only process one shared file per dataset.
 
 > Participants are free to submit as many times as they wish. However, there is a 15-minute cooldown period between each submission, meaning submissions can only be made once every 15 minutes. Submitted results will be scored and displayed on the leaderboard shortly after processing.
 
