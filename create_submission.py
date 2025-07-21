@@ -10,9 +10,8 @@ from utils import generate_random_data, load_results, load_ground_truth
 
 datasets_dict = {
     'debug': [
-        '2018-03-15.15-05-00.15-10-00.cafe.G421',
-        '2018-03-15.15-05-00.15-10-00.parking.G436',
-        '2018-03-15.15-05-00.15-10-00.plaza.G638'
+        'vlincs_MS02_MC0002_MCAM318_2018-03-15_15-00-01',
+        'vlincs_MS02_MC0002_MCAM310_2018-03-15_15-00-06'
     ]
 }
 
