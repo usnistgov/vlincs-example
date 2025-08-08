@@ -17,6 +17,14 @@ datasets_dict = {
 
 valid_columns_names = ['frame', 'object_id', 'class_id', 'score', 'x', 'y', 'w', 'h', 'lat', 'long', 'alt']
 
+def print_valid_columns():
+    """
+    Prints the valid column names that should be present in the submission data.
+    """
+    print("Valid columns names:")
+    for col in valid_columns_names:
+        print(f"- {col}")
+    print("Note: 'lat', 'long', and 'alt' are optional columns.")
 
 def validate_submission(results_dirpath: str, dataset_name: str) -> None:
     """
@@ -196,6 +204,9 @@ def package_submission(args):
 
     if ground_truth_dirpath is not None:
         compute_metrics(results_dirpath, ground_truth_dirpath, dataset_name)
+
+    if not os.path.exists(output_dirpath):
+        os.makedirs(output_dirpath)
 
     # Zip up all files
     output_filepath = os.path.join(
